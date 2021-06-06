@@ -2,7 +2,7 @@
 
 ------
 
-### 1. Overview
+### Overview
 
 ------
 
@@ -11,7 +11,7 @@ This repository hosts scripts to generate self-contained installations of the [E
 ------
 
 
-### 1.1. Prerequisites
+### Prerequisites
 
 If you don't have Git, install it from [Git Downloads](https://git-scm.com/downloads).
 
@@ -38,11 +38,11 @@ Python, which the EBCLI Installer depends on, requires the following prerequisit
 
 ------
 
-### 2. Use
+### Installation
 
 ------
 
-#### 2.1. Clone this repository
+#### 1. Clone this repository
 
 Use the following:
 
@@ -50,7 +50,7 @@ Use the following:
 git clone https://github.com/aws/aws-elastic-beanstalk-cli-setup.git
 ```
 
-#### 2.2. Install/Upgrade the EB CLI
+#### 2 Install/Upgrade the EB CLI
 
 On **Bash** and **Zsh** on macOS and Linux:
 
@@ -64,7 +64,15 @@ In **PowerShell** or in a **Command Prompt** window:
 .\aws-elastic-beanstalk-cli-setup\scripts\bundled_installer
 ```
 
-#### 2.3. Troubleshooting
+#### After installation
+
+On Linux and macOS, the output contains instructions to add the EB CLI (and Python) executable file to the shell's `$PATH` variable, if it isn't already in it.
+
+#### Demo execution of `bundled_installer`
+
+![Demo](./DEMO.png)
+
+#### Troubleshooting
 
 - **Linux**
 
@@ -111,15 +119,7 @@ In **PowerShell** or in a **Command Prompt** window:
       python .\aws-elastic-beanstalk-cli-setup\scripts\ebcli_installer.py
       ```
 
-#### 2.4. After installation
-
-On Linux and macOS, the output contains instructions to add the EB CLI (and Python) executable file to the shell's `$PATH` variable, if it isn't already in it.
-
-#### 2.5. Demo execution of `bundled_installer`
-
-![Demo](./DEMO.png)
-
-### 3. Advanced use
+### Advanced use
 
 To install the EB CLI, `bundled_installer` runs `ebcli_installer.py`. `ebcli_installer.py` has the following capabilities:
 
@@ -153,11 +153,11 @@ Run the following command to view the help text for `ebcli_installer.py`:
 python scripts/ebcli_installer.py --help
 ```
 
-### 4. Frequently asked questions
+### Frequently asked questions
 
 ------
 
-#### 4.1. Can I skip the Python installation?
+#### Can I skip the Python installation?
 
 **Yes.** If you already have Python installed on your system, after step `2.1.`, run the following.
 
@@ -173,21 +173,21 @@ In **PowerShell** and from the **Command Prompt** window:
 python .\aws-elastic-beanstalk-cli-setup\scripts\ebcli_installer.py
 ```
 
-#### 4.2. For the **experienced Python developer**, what's the advantage of this mode of installation instead of regular `pip` inside a `virtualenv`?
+#### For the **experienced Python developer**, what's the advantage of this mode of installation instead of regular `pip` inside a `virtualenv`?
 
 Even within a `virtualenv`, a developer might need to install multiple packages whose dependencies are in conflict. For example, at times the AWS CLI and the EB
 CLI have used conflicting versions of `botocore`. [One such instance](https://github.com/aws/aws-cli/issues/3550) was particularly egregious. When there are
 conflicts, users have to manage separate `virtualenvs` for each of the conflicting packages, or find a combination of the packages without conflicts.
 Both these workarounds become unmanageable over time, and as the number of packages that are in conflict increases.
 
-#### 4.3. On macOS (or Linux systems with `brew`), is this better than `brew install awsebcli`?
+#### On macOS (or Linux systems with `brew`), is this better than `brew install awsebcli`?
 
 **Yes**, for these reasons:
 
   - The AWS Elastic Beanstalk team has no control over how `brew` operates.
   - The `brew install ...` mechanism doesn't solve the problem of dependency conflicts, which is a primary goal of this project.
 
-#### 4.3. For developers who are **new to Python**, does this mode of installation pose challenges?
+#### For developers who are **new to Python**, does this mode of installation pose challenges?
 
 The opinion of the AWS Elastic Beanstalk team is "**No**".
 
@@ -201,19 +201,19 @@ Typically, for such developers, use of `virtualenv` is the correct path forward.
 Another common problem is where users install Python and `pip` in ways that Elastic Beanstalk Documentation doesn't recommend, such as using arbitrary Personal Package Archives
 (PPAs) on Ubuntu, or similar unmaintained sources that lack scrutiny.
 
-#### 4.4. Can I execute the Bash scripts in a Cygwin, git-bash, or other Bash-like shell on Windows?
+#### Can I execute the Bash scripts in a Cygwin, git-bash, or other Bash-like shell on Windows?
 
 **No**. At this time, we don't directly support execution on Bash-like environments on Windows. Use PowerShell or the Command Prompt window to install. You can
 add the location of the `eb` and `Python` executable files to `$PATH` .
 
-#### 4.5. Can I execute the Bash scripts in a `fish` shell?
+#### Can I execute the Bash scripts in a `fish` shell?
 **Yes**, but only if you have Bash on your computer. At this time we don't provide specific guidance on how to set `$PATH` in Fish, however, Fish has [detailed documentation](https://fishshell.com/docs/current/tutorial.html#tut_path) for this purpose.
 
-#### 4.6. I already have Python installed. Can I still execute `bundled_installer`?
+#### I already have Python installed. Can I still execute `bundled_installer`?
 
 **Yes**. It's safe to execute `bundled_installer` even if you already have Python installed. The installer will skip reinstallation.
 
-#### 4.7. I already have the EB CLI installed. Can I still execute `ebcli_installer.py`?
+#### I already have the EB CLI installed. Can I still execute `ebcli_installer.py`?
 
 **Yes**.
 
@@ -226,7 +226,7 @@ Consider the following two cases:
 user's home directory (or the user's choice of a directory indicated through the `--location` argument), and prompt the user to prefix
 `/path-to/.ebcli-virtual-env/executables` to `$PATH`. Until you perform this action, the older `eb` executable file will continue to be referenced when you type `eb`.
 
-#### 4.8. How does `ebcli_installer.py` work?
+#### How does `ebcli_installer.py` work?
 
 When executing the Python script, `ebcli_installer.py` does the following:
 
@@ -237,24 +237,24 @@ When executing the Python script, `ebcli_installer.py` does the following:
   - `.bat` and `.ps1` wrappers for `eb` on Windows.
 - When complete, you will be prompted to add `<installation-location>/executables` to `$PATH`, only if the directory is not already in it.
 
-#### 4.8. How does `bundled_installer` work?
+#### How does `bundled_installer` work?
 
 - On macOS or Linux, `bundled_installer` uses the extremely popular [`pyenv` project](https://github.com/pyenv/pyenv) to install the latest version of Python 3.7.
 - On Windows, it downloads the MSI installer of the latest Python version from Python's website and silently installs it.
 
-#### 4.9. Are there dependency problems that this mode of installation doesn't solve?
+#### Are there dependency problems that this mode of installation doesn't solve?
 
 Unfortunately, **yes**.
 
 Suppose the dependencies of `eb`, say `Dep A` and `Dep B`, are in conflict. Because `pip` lacks dependency management capabilities, the resulting `eb` installation might not work.
 
-#### 4.10. Is it okay to use Python 2.7 to install the EB CLI?
+#### Is it okay to use Python 2.7 to install the EB CLI?
 
 **Yes**, however, be aware that Python 2.7 will be deprecated on January 1, 2020. There won't be security updates after that date.
 
 Also, the latest minor version series, Python 3.7, offers significant improvements over the Python 2.7 series. We highly recommend that you use Python 3.7
 for testing purposes, even though the Elastic Beanstalk team tests the EB CLI against Python 2.7.
 
-### 5. License
+### License
 
 This library is licensed under the Mozilla Public License Version 2.0.
